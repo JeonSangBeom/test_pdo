@@ -16,7 +16,7 @@
   </head>
   <body>
     <center>
-    <h1>리스트 조회</h1>
+    <h1>내용 조회</h1>
     <table style="min-width: 800px; min-height: 300px; text-align: center; font-size: 25px;" border=1>
       <tr>
         <td>번호</td>
@@ -43,20 +43,20 @@
         <td><?=$read_row['hit']?></td>
       </tr>
     </table>
-   <input type="button"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
+   <input type="button" style = "margin-top: 30px;"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
     <br>
    
-
-    <form action="comment_insert.php?seq=<?=$_GET['seq']?>" method="post" style = "margin-top: 100px;">
+<div >
+    <form action="comment_insert.php?seq=<?=$_GET['seq']?>" method="post" style = "margin-top: 100px; ">
       <input type="hidden" name="seq" value="">
       <input type="text"  name="content" style=" min-width:500px; height:30px;"></input>
       <input type="submit" value="댓글쓰기" style= "height:30px" >
     </form>
 
-
+    <table >
 <?php
   // 2. 댓글들을 출력하는 sql문
-  $comment_sql = "select * from comment";
+  $comment_sql = "select * from comment order by seq desc";
   $comment_stt=$pdo->prepare($comment_sql);
   $comment_stt->execute();
 
@@ -85,7 +85,7 @@
 
   while($comment_row=$comment_stt->fetch())
   {
-    echo "<table>
+    echo "
       <tr>
         <td>번호</td>
         <td>{$comment_row['seq']}</td>
@@ -101,6 +101,8 @@
   }
 
 ?>
+</table>
+</div>
   </center>
 
 
