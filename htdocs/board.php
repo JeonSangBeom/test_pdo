@@ -53,7 +53,7 @@
 ?>
     <tr>
       <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['seq']?></a></td>
-      <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['subject']?></a></td>
+      <td><a href='read.php?seq=<?=$list_row['seq']?>'><?=$list_row['subject']?></a></td>
       <td><?=$list_row['name']?></td>
       <td><?=$list_row['regdate']?></td>
       <td><?=$list_row['content']?></td>

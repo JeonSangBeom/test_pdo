@@ -43,11 +43,67 @@
         <td><?=$read_row['hit']?></td>
       </tr>
     </table>
-    <a href="update_p.php?seq=<?=$_GET['seq']?>">수정하기</a>
-    <a href="update_p.php?seq=<?=$_GET['seq']?>">삭제하기</a>
+   <input type="button"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
     <br>
    
+
+    <form action="comment_insert.php?seq=<?=$_GET['seq']?>" method="post" style = "margin-top: 100px;">
+      <input type="hidden" name="seq" value="">
+      <input type="text"  name="content" style=" min-width:500px; height:30px;"></input>
+      <input type="submit" value="댓글쓰기" style= "height:30px" >
+    </form>
+
+
+<?php
+  // 2. 댓글들을 출력하는 sql문
+  $comment_sql = "select * from comment";
+  $comment_stt=$pdo->prepare($comment_sql);
+  $comment_stt->execute();
+
+  // $_SESSION['id']를 존재 유무에 따른 정보 정리
+  if(!isset($_SESSION['id']))
+  {
+    $id = 'guest';
+  }
+  else
+  {
+    $id=$_SESSION['id'];
+  }
+
+  /*
+  // 3. 삭제와 수정의 권한을 주기 위한 sql문
+  $level_sql = "select * from member where id = '$id'";
+  $level_stt=$pdo->prepare($level_sql);
+  $level_stt->execute();
+  $level_row=$level_stt->fetch();
+
+  if(!isset($level_row['level']))
+  {
+    $level_row['level']=2;
+  }
+*/
+
+  while($comment_row=$comment_stt->fetch())
+  {
+    echo "<table>
+      <tr>
+        <td>번호</td>
+        <td>{$comment_row['seq']}</td>
+      
+        <td>내용</td>
+        <td>{$comment_row['content']}</td>
+      
+        <td>날짜</td>
+        <td>{$comment_row['regdate']}</td>
+      </tr>";
+
+    
+  }
+
+?>
   </center>
+
+
   </body>
 </html>
 
