@@ -1,9 +1,13 @@
 <?php
 include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; 
 
+session_start();
 
+if(!isset($_SESSION['id']))
+{
+    
 ?>
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +27,25 @@ include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
 <body>
     <h1>SB site</h1>
     <form method="get" action="delet_p.php">
-             <ul>
-                <li class="depth1"><a href="/project.php">로그인</a></li>
-                <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
-                <li class="depth1"><a href="/board.php">  게시판</a></li>
-            </ul>
+            <ul>
+             <li><a href="/member/login.php">로그인</a></li> 
+             <li> <a href="/member/member.php">회원가입</a></p></li>
+             <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
+             <li class="depth1"><a href="/board.php">  게시판</a></li>
+             <?php
+            }
+            else
+            {
+            ?>
+            <li><p><?=$_SESSION['id']?>님</a> </li>
+            <li><a href="/member/logout.php">로그아웃</a></p></li>
+            <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
+            <li class="depth1"><a href="/board.php">  게시판</a></li>
+
+            <?php
+            }
+            ?>
+           </ul>
     </form>
 </body>
 </html>
