@@ -1,23 +1,16 @@
-<?php include  $_SERVER['DOCUMENT_ROOT']."/index.php"; ?>
-
 <?php
-$bno = $_GET['bno'];
-$pw = $_GET['pw'];
+include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
 
-$URL = 'board.php';
+$seq = $_GET['seq'];
 
-$query = "DELET FROM bbs WHERE seq=$bno and pw=$pw";
+// 1. 게시글을 삭제하기 위한 sql문
+$del_sql = "delete from bbs where seq='$seq'";
+$del_stt=$pdo->prepare($del_sql);
+$del_stt->execute();
 
-$result = $con->query($query);
-if ($result){
-?> <script>
-        alert("<?php echo "삭제가 됐습니다." ?>");
-        location.replace("<?php echo $URl ?>");
-    </script>
-<?php
-} else {
-    echo "실패했습니다.";
-}
-
-mysqli_close($con);
+echo
+"<script>
+  window.alert('글이 정상적으로 삭제되었습니다!');
+  location.href='board.php';
+</script>";
 ?>

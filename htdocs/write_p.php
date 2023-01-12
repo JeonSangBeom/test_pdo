@@ -1,4 +1,4 @@
-<?php include  $_SERVER['DOCUMENT_ROOT']."/index.php"; ?>
+<?php include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; ?>
 <?php
 //$connect = mysqli_connect("localhost", "root", "", "test_bbs") or die("fail");
 
@@ -11,11 +11,26 @@ $content = $_POST['content'];           //Content
 $URL = 'board.php';                   //return URL
 
 
-$query = "INSERT INTO bbs (name, pw, subject, content, regdate, hit ) 
+$sql = "INSERT INTO bbs (name, pw, subject, content, regdate, hit ) 
         values('$name','$pw','$subject','$content', NOW(), 0 )";
 
+$pdo->prepare($sql)->execute();
 
-$result = $con->query($query);
+
+
+echo
+"<script>
+window.alert('등록이 완료되었습니다!');
+location.href='board.php';
+</script>";
+
+
+
+
+
+//include  __DIR__ . '../board.php';
+/*
+$result = $st->query($query);
 if ($result) {
 ?> <script>
         alert("<?php echo "게시글이 등록되었습니다." ?>");
@@ -27,4 +42,5 @@ if ($result) {
 }
 
 mysqli_close($con);
+*/
 ?>

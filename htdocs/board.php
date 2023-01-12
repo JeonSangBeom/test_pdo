@@ -1,96 +1,70 @@
-<?php include  $_SERVER['DOCUMENT_ROOT']."/index.php"; ?>
+ <?php
+ include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<style>
-    body{
-        margin: 0 450px;
-    }
-    td{
-        text-align: center;
-    }
-    .right{
-        display: flex;
-        justify-content: right;        
-    }
-</style>
-<title>게시판</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
-</head>
-<body>
-<div id="board_area"> 
-  <h1>자유게시판</h1>
-  <h4>자유롭게 글을 쓸 수 있는 게시판입니다.</h4>
-    <table class="list-table">
-      <thead>
-          <tr>
-              <th width="70">번호</th>
-                <th width="100">제목</th>
-                <th width="50">글쓴이</th>
-                <th width="50">작성일</th>
-                <th width="100">조회수</th>
-            </tr>
-        </thead>
-        <?php
-        //$db_host="localhost"; 
-       // $db_user="root";
-       // $db_password="1234";
-       // $db_name="test_bbs";
-       // $con=mysqli_connect($db_host, $db_user, $db_password, $db_name);
-       
+  // 페이징에 필요한 변수 11개
+  // $_GET['page'], $list_size, $page_size, $first
+  // $total_list, $total_page, $row
+  // $start_page, $end_page, $back, $next
+  if(!isset($_GET['page']))
+  {
+    $_GET['page']=1;
+  }
 
-       
-        
-   
-           // $sql = 'SELECT `joketext` FROM `joke`';
-            //$result = $pdo->query($sql);         
-         
-          //  $stmt = $pdo -> prepare("SELECT * FROM bbs order by seq desc ");
-            //$stmt -> bindValue(":seq", $bno);
-           // $stmt -> execute();
-      
-         // $bbs = $stmt -> fetch(PDO::FETCH_ASSOC); 
-        //  while($bbs = mysqli_fetch_array( $stmt)){
-             // { 
-                //title이 30을 넘어서면 ...표시
-             //   $title=str_replace($bbs["subject"],mb_substr($bbs["subject"],0,30,"utf-8")."...",$bbs["subject"]);
-             // }
+  $list_size = 2;
+  $page_size = 2;
 
-             $result = "";
-try {
-    $statement = $pdo->query("select * from bbs");
-    
-    while($record = $statement->fetch(PDO::FETCH_ASSOC)){
-        $result .= "<tr>";
-        foreach($record as $column){
-            $result .= "<td>" . $column . "</td>";
-        }
-        $result .= "</tr>";
-    }
-} catch(PDOException $e){
-    $result = "#ERR:" . $e->getMessage();
-}
-$pdo = null;
+  $first = ($_GET['page']*$list_size)-$list_size;
+
+
+
+
+  // 1. 리스트에 출력하기 위한 sql문
+  $list_sql = "select * from bbs ";
+  $list_stt=$pdo->prepare($list_sql);
+  $list_stt->execute();
 ?>
-       
-      <tbody>
-        <!--<tr>
-          <td width="70"><?php echo $record['seq']; ?></td>
-          <td width="120"><a href="info.php?seq=<?php echo $record["seq"];?>"><?php echo $record['subject'];?><a></td>
-          <td width="500"><?php echo $record['name'];?></td>
-          <td width="100"><?php echo $record['regdate'];?></td>
-          <td width="100"><?php echo $record['hit']; ?></td>
-        </tr>
--->
-<?php echo $result; ?>
-      </tbody>
-      <?php//}  ?>
-    </table>
-    <div  class="right">
-        <button><a href="write.php">입력</a></button>       
-    </div>
+
+  <center>
+  <h1>게 시 판</h1>
+  <form action="search.php" method="get">
+    <select name="select">
+      <option value="all">전체</option>
+      <option value="title">제목</option>
+      <option value="name">작성자</option>
+      <option value="content">내용</option>
+      <option value="title_content">제목+내용</option>
+    </select>
+    <input type="text" name="search">
+    <input type="submit" value="검색">
+  </form>
+
+  <table  style =" min-width:800; text-align:center;  margin-top:15px; margin-bottom:15px" border=1 >
+    <tr>
+      <td>번호</td>
+      <td>제목</td>
+      <td>작성자</td>
+      <td>날짜</td>
+      <td>내용</td>
+    </tr>
+
+<?php
+  while($list_row=$list_stt->fetch())
+  {
+?>
+    <tr>
+      <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['seq']?></a></td>
+      <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['subject']?></a></td>
+      <td><?=$list_row['name']?></td>
+      <td><?=$list_row['regdate']?></td>
+      <td><?=$list_row['content']?></td>
+    </tr>
+   
+<?php
+  }
+  
+  echo "</table>";
+  ?>
+  <div  class="right" style = " display:flex; justify-content: center;">
+        <button style = " min-width:100; height: 50px;"><a href="write.php">입력</a></button>       
   </div>
-</body>
-</html>
+  
