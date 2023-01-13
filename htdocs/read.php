@@ -35,6 +35,10 @@
         <td><?=$read_row['content']?></td>
       </tr>
       <tr>
+        <td>파일</td>
+        <td><?=$read_row['file']?></td>
+      </tr>
+      <tr>
         <td>날짜</td>
         <td><?=$read_row['regdate']?></td>
       </tr>

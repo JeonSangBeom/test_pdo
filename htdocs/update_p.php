@@ -1,6 +1,7 @@
 <?php
 include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; 
 
+
   if(!$_POST['subject'])
   {
     echo

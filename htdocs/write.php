@@ -33,7 +33,7 @@
     <title>게시판</title>
 </head>
 <body>
-<form method="post" action="write_p.php">
+<form method="post" action="write_p.php" enctype="multipart/form-data">
         <!-- method : POST!!! (GET X) -->
         <table style="padding-top:50px" align=center width=auto border=0 cellpadding=2>
             <tr>
@@ -58,7 +58,10 @@
                             <td>내용</td>
                             <td><textarea name="content" cols=75 rows=15></textarea></td>
                         </tr>
-
+                        <tr>
+                            <td>파일 업로드</td>
+                            <td><input type="file" name="b_file" id="b_file"">
+                        </tr>
                         <tr>
                             <td>비밀번호</td>
                             <td><input type="password" name="pw" size=15 maxlength=15></td>

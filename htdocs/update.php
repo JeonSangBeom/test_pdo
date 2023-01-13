@@ -32,6 +32,10 @@
           <td>내용</td>
           <td><textarea name="content" rows="8" cols="80"><?=$edit_row['content']?></textarea></td>
         </tr>
+        <tr>
+          <td>파일</td>
+          <td><input type="file" name="b_file" id="b_file"></td>
+        </tr>
       </table>
       <br>
       <input type="submit" value="수정하기">

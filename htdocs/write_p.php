@@ -1,18 +1,26 @@
-<?php include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; ?>
 <?php
+include $_SERVER['DOCUMENT_ROOT']."/pdo.php"; 
+
+
+
 //$connect = mysqli_connect("localhost", "root", "", "test_bbs") or die("fail");
 
-$name = $_POST['name'];                   //Writer
-$pw = $_POST['pw'];                     //Password
+$tmpfile =  $_FILES['b_file']['tmp_name'];
+$o_name = $_FILES['b_file']['name'];
+$filename = iconv("UTF-8", "EUC-KR",$_FILES['b_file']['name']);
+$folder = "upload/".$filename;
+move_uploaded_file($tmpfile,$folder);
+
+
+$name    = $_POST['name'];                   //Writer
+$pw      = $_POST['pw'];                     //Password
 $subject = $_POST['subject'];               //Title
-$content = $_POST['content'];           //Content
-//$date = date('Y-m-d H:i:s');            //Date
-
-$URL = 'board.php';                   //return URL
+$content = $_POST['content'];  
 
 
-$sql = "INSERT INTO bbs (name, pw, subject, content, regdate, hit ) 
-        values('$name','$pw','$subject','$content', NOW(), 0 )";
+
+$sql = "INSERT INTO bbs (name, pw, subject, content, file,  regdate, hit ) 
+        values('$name','$pw','$subject','$content', '$o_name', NOW(), 0 )";
 
 $pdo->prepare($sql)->execute();
 
@@ -28,19 +36,5 @@ location.href='board.php';
 
 
 
-//include  __DIR__ . '../board.php';
-/*
-$result = $st->query($query);
-if ($result) {
-?> <script>
-        alert("<?php echo "게시글이 등록되었습니다." ?>");
-        location.replace("<?php echo $URL ?>");
-    </script>
-<?php
-} else {
-    echo "게시글 등록에 실패하였습니다.";
-}
 
-mysqli_close($con);
-*/
 ?>
