@@ -18,15 +18,16 @@
     <h1>수 정 하 기</h1>
   </head>
   <body >
-    <form action="update_p.php?seq=<?=$_GET['seq']?>" method="post">
+    <form action="comment_update_p.php?seq=<?=$_GET['seq']?>" method="post">
       <table>        
         <tr>
           <td>내용</td>
           <td><textarea name="content" rows="8" cols="80"><?=$edit_row['content']?></textarea></td>
         </tr>
+        
       </table>
       <br>
-      <input type="submit" value="수정하기" onClick="location.href='../comment__p.php'">
+      <input type="submit" value="수정하기">
       <input type="button" value="돌아가기" onclick="history.back(-1)">
       <input type="button" value="삭제하기" onClick="location.href='../delet_p.php?seq=<?=$_GET['seq']?>'"> s
     </form>

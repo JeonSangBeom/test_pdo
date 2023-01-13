@@ -44,6 +44,8 @@
       </tr>
     </table>
    <input type="button" style = "margin-top: 30px;"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
+   <input type="button" style = "margin-top: 30px;"  value="돌아가기" onClick="location.href='../board.php'"> 
+  
     <br>
    
 <div >
@@ -56,7 +58,7 @@
     <table >
 <?php
   // 2. 댓글들을 출력하는 sql문
-  $comment_sql = "select * from comment order by seq desc";
+  $comment_sql = "select * from comment where category = {$_GET['seq']} order by seq desc";
   $comment_stt=$pdo->prepare($comment_sql);
   $comment_stt->execute();
 
@@ -92,12 +94,12 @@
         <td>내용</td>
         <td>{$comment_row['content']}</td>
         <td>날짜</td>
-        <td>{$comment_row['regdate']}<button style=margin-left:20;  onclick=location.href='../comment_update.php?seq={$comment_row['seq']}' >수정</button></td>
-        
+        <td>{$comment_row['regdate']}<button style=margin-left:20;  onclick=location.href='../comment_update.php?seq={$comment_row['seq']}' >수정</button></td>        
       </tr>";
       
     
   }
+
   
 
 ?>

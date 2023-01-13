@@ -2,14 +2,14 @@
 <?php
 //$connect = mysqli_connect("localhost", "root", "", "test_bbs") or die("fail");
 
-$seq = $_POST['seq'];                   //Writer
+$seq = $_GET['seq'];                   //Writer
 $content = $_POST['content'];           //Content
 //$date = date('Y-m-d H:i:s');            //Date
 
+//exit;
 
-
-$sql = "INSERT INTO comment (id, name, pw, content, regdate, hit ) 
-        values('', '','','$content', NOW(), 0 )";
+$sql = "INSERT INTO comment (id, name, pw, category, content, regdate, hit ) 
+        values('', '','', $seq ,'$content', NOW(), 0 )";
 
 $pdo->prepare($sql)->execute();
 
