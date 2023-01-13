@@ -88,24 +88,24 @@
     echo "
       <tr>
         <td>번호</td>
-        <td>{$comment_row['seq']}</td>
-      
+        <td>{$comment_row['seq']}</td> 
         <td>내용</td>
         <td>{$comment_row['content']}</td>
-      
         <td>날짜</td>
-        <td>{$comment_row['regdate']}</td>
+        <td>{$comment_row['regdate']}<button style=margin-left:20;  onclick=location.href='../comment_update.php?seq={$comment_row['seq']}' >수정</button></td>
+        
       </tr>";
-
+      
     
   }
+  
 
 ?>
 </table>
 </div>
   </center>
 
-
+ 
   </body>
 </html>
 

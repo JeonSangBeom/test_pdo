@@ -59,7 +59,7 @@ include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
     // 2. 회원가입에 필요한 정보를 모두 입력했는지 확인 한 후, 테이블에 해당 정보를 입력하는 sql문
     $member_sql = "insert into members(id, pass, name, email)";
     $member_sql .= "values(:id, :pass, :name, :email)";
-    $member_stt=$dbo->prepare($member_sql);
+    $member_stt=$pdo->prepare($member_sql);
     $member_stt->execute(
       array(
         ':id'=>$_POST['id'],
@@ -72,7 +72,7 @@ include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
     echo
     "<script>
       window.alert('회원가입이 완료되었습니다!');
-      location.href='list.php';
+      location.href='../';
     </script>";
   }
 ?>

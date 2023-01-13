@@ -1,11 +1,9 @@
 <?php
 include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; 
-
 session_start();
 
-if(!isset($_SESSION['id']))
-{
-    
+//echo "userName 값: ".$_SESSION['id']."<br/>"; 
+//echo "userPw 값: ".$_SESSION['pass']; 
 ?>
   
 <!DOCTYPE html>
@@ -28,6 +26,10 @@ if(!isset($_SESSION['id']))
     <h1>SB site</h1>
     <form method="get" action="delet_p.php">
             <ul>
+             <?php
+            if(!isset($_SESSION['id']))
+            {
+            ?>
              <li><a href="/member/login.php">로그인</a></li> 
              <li> <a href="/member/member.php">회원가입</a></p></li>
              <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
