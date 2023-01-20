@@ -53,7 +53,14 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                     alert("중복 입니다");                    
+                  let val = data.responseText;
+                  console.log(val);
+             
+                  if(data.responseText == "yes"){
+                    alert("중복");
+                  }else{
+                    alert("통과");
+                  }    
                    
   
                    

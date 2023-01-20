@@ -3,7 +3,7 @@
     include  $_SERVER['DOCUMENT_ROOT']."/pdo.php"; 
     
       session_start();
-    try{
+    
       $id = $_POST['id'];
     
     
@@ -25,10 +25,7 @@
       window.alert('중복된 아이디가 존재합니다.');
       history.back(-1);
     </script>";
+    return "no";
   } 
-    }catch (Exception $e) {
-        $mysqldb->link->rollBack();
-    
-    } 
 
 ?>
