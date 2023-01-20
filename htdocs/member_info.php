@@ -1,4 +1,4 @@
- <?php
+<?php
  include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
 
   // 페이징에 필요한 변수 11개
@@ -16,37 +16,15 @@
   $first = ($_GET['page']*$list_size)-$list_size; //공식 뿌릴 갯수 사이즈와 
 
   // 1. 리스트에 출력하기 위한 sql문
-  $list_sql = "select * from bbs order by seq desc limit $first, $list_size";
+  $list_sql = "select * from members order by seq desc limit $first, $list_size";
   //$first 부터 $list_size 갯수만큼
   $list_stt=$pdo->prepare($list_sql);
   $list_stt->execute();
 
-  //검색
-  //$category = $_GET['category'];
-  //$search_text = $_GET['search'];
-
-
-  if (!empty($search_type) && !empty($search_text)) {
-    if ($search_type == 'all') {
-        //제목 + 내용
-        $where = "
-            AND
-                (
-                    title LIKE :search_text OR
-                    name LIKE :search_text
-                )
-        ";
-    } else {
-        $where = " AND {$search_type} LIKE :search_text";
-    }
-    $arrValue[':search_text'] = "%{$search_text}%";
-}
 
 
 
 
-
-  //세션 실행
   session_start();
 
 //echo "userName 값: ".$_SESSION['id']."<br/>"; 
@@ -56,22 +34,24 @@
   <center>
   <h1>게 시 판</h1>
   <form action="search.php" method="get">
-    <select name="search_type">
+    <select name="select">
       <option value="all">전체</option>
       <option value="title">제목</option>
-      <option value="name">이름</option>      
+      <option value="name">작성자</option>
+      <option value="content">내용</option>
+      <option value="title_content">제목+내용</option>
     </select>
-    <input type="text" name="search_text">
+    <input type="text" name="search">
     <input type="submit" value="검색">
   </form>
 
   <table  style =" min-width:800; text-align:center;  margin-top:15px; margin-bottom:15px" border=1 >
     <tr>
       <td>번호</td>
-      <td>제목</td>
-      <td>작성자</td>
+      <td>id</td>
+      <td>이름</td>
+      <td>email</td>
       <td>날짜</td>
-      <td>내용</td>
     </tr>
 
 <?php
@@ -80,10 +60,10 @@
 ?>
     <tr>
       <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['seq']?></a></td>
-      <td><a href='read.php?seq=<?=$list_row['seq']?>'><?=$list_row['subject']?></a></td>
+      <td><a href='read.php?seq=<?=$list_row['seq']?>'><?=$list_row['id']?></a></td>
       <td><?=$list_row['name']?></td>
+      <td><?=$list_row['email']?></td>
       <td><?=$list_row['regdate']?></td>
-      <td><?=$list_row['content']?></td>
     </tr>
    
 <?php
@@ -91,7 +71,7 @@
   
   echo "</table>";
    // 2. 총 페이지를 구하기 위한 sql문
-   $total_sql = "select count(*) from bbs";
+   $total_sql = "select count(*) from members";
    $total_stt=$pdo->prepare($total_sql);
    $total_stt->execute();
    $total_row=$total_stt->fetch();
@@ -154,19 +134,8 @@
      echo "<a href='$_SERVER[PHP_SELF]?page=$next'>▶</a>";
    }
   ?>
- <?php
-    if(isset($_SESSION['id']))
-            {
-            ?>
-            <div  class="right" style = " display:flex; justify-content: center; margin-top:20px">
-              <button style = " min-width:100; height: 50px;"><a href="write.php">입력</a></button>       
-            </div>
-            <?php
-            }            
-            
-            ?>
+
 
 
 <script>
-
 </script>

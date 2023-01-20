@@ -7,15 +7,17 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <script src='/js/jquery-3.6.0.min.js'></script>
   </head>
   <body>
     <h1>회 원 가 입</h1>
-    <form action="member_p.php" method="post">
+    <form id = "fmt" action="member_p.php" method="post">
       <br>
       <table border=1>
         <tr>
           <td>아이디</td>
-          <td><input type="text" name="id"></td>
+          <td><input type="text" id="id" name="id"></td>
+          <p><input type="button" id="check_button" value="ID 중복 검사" onclick="javascript:checkid();"></p>
         </tr>
         <tr>
           <td>비밀번호</td>
@@ -34,6 +36,36 @@
       <input type="submit" value="회원가입">
       <input type="button" value="돌아가기" onclick="history.back(-1)">
     </form>
+    
   </body>
+  <script>
+    function checkid(){
+    //  let val = $("#fmt").val();
+     // console.log(val);
+
+      let formData = new FormData($("#fmt")[0]);
+
+
+      $.ajax({
+                url: "check_id.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                     alert("중복 입니다");                    
+                   
+  
+                   
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+    }
+
+    
+  </script>
+
 </html>
 

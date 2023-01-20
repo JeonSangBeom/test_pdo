@@ -6,7 +6,7 @@ include  $_SERVER['DOCUMENT_ROOT']."/pdo.php";
   $id = $_POST['id'];
 
   // 1. table에서 중복 된 아이디가 있는지 검사하는 sql문
-  $check_sql = "select id from members where id='$id'";
+  $check_sql = "select id from members where id='$id' ";
   $check_stt = $pdo->prepare($check_sql);
   $check_stt->execute();
   $check_row=$check_stt->fetch();

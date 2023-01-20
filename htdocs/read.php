@@ -6,6 +6,8 @@
   $read_stt=$pdo->prepare($read_sql);
   $read_stt->execute();
   $read_row=$read_stt->fetch();
+
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +58,16 @@
     <form action="comment_insert.php?seq=<?=$_GET['seq']?>" method="post" style = "margin-top: 100px; ">
       <input type="hidden" name="seq" value="">
       <input type="text"  name="content" style=" min-width:500px; height:30px;"></input>
-      <input type="submit" value="댓글쓰기" style= "height:30px" >
+      <?php
+    if(isset($_SESSION['id']))
+            {
+            ?>
+            <input type="submit" value="댓글쓰기" style= "height:30px" >
+            <?php
+            }  
+            
+            ?>
+      
     </form>
 
     <table >

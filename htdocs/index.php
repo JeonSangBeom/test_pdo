@@ -40,7 +40,7 @@ session_start();
             {
             ?>
             <li><p><?=$_SESSION['id']?>님</a> </li>
-            <li><a href="/member/logout.php">로그아웃</a></p></li>
+            <li><a href="/member/logout_p.php">로그아웃</a></p></li>
             <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
             <li class="depth1"><a href="/board.php">  게시판</a></li>
 
@@ -51,3 +51,5 @@ session_start();
     </form>
 </body>
 </html>
+
+<script>console.log(document.session)</script>
