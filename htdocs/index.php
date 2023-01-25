@@ -32,7 +32,6 @@ session_start();
             ?>
              <li><a href="/member/login.php">로그인</a></li> 
              <li> <a href="/member/member.php">회원가입</a></p></li>
-             <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
              <li class="depth1"><a href="/board.php">  게시판</a></li>
              <?php
             }
@@ -41,7 +40,7 @@ session_start();
             ?>
             <li><p><?=$_SESSION['id']?>님</a> </li>
             <li><a href="/member/logout_p.php">로그아웃</a></p></li>
-            <li class="depth1"><a href="/board.php">  회원정보관리</a></li>
+            <li class="depth1"><a href="/member_info.php">  회원정보관리</a></li>
             <li class="depth1"><a href="/board.php">  게시판</a></li>
 
             <?php

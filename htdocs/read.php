@@ -49,7 +49,16 @@
         <td><?=$read_row['hit']?></td>
       </tr>
     </table>
-   <input type="button" style = "margin-top: 30px;"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
+    
+    <?php
+    if(isset($_SESSION['id']))
+    {
+    ?>
+      <input type="button" style = "margin-top: 30px;"  value="수정하기" onClick="location.href='../update.php?seq=<?=$_GET['seq']?>'"> 
+    <?php
+    }              
+    ?>
+
    <input type="button" style = "margin-top: 30px;"  value="돌아가기" onClick="location.href='../board.php'"> 
   
     <br>
@@ -60,13 +69,13 @@
       <input type="text"  name="content" style=" min-width:500px; height:30px;"></input>
       <?php
     if(isset($_SESSION['id']))
-            {
-            ?>
-            <input type="submit" value="댓글쓰기" style= "height:30px" >
-            <?php
-            }  
-            
-            ?>
+    {
+    ?>
+      <input type="submit" value="댓글쓰기" style= "height:30px" >
+    <?php
+    }  
+    
+    ?>
       
     </form>
 

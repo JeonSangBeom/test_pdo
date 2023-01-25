@@ -9,17 +9,22 @@
   {
     $_GET['page']=1;
   }
+  if(isset($_GET['search_type']) && isset($_GET['search_text'])){
+    $search_type       = $_GET['search_type'];
+    $search_text       = $_GET['search_text'];
+  }else{
+    $search_type       = '';
+    $search_text       = '';
+  }
 
+
+  $arrValue  = array();
   $list_size = 5;
   $page_size = 5;
+  $where ='';
 
   $first = ($_GET['page']*$list_size)-$list_size; //공식 뿌릴 갯수 사이즈와 
 
-  // 1. 리스트에 출력하기 위한 sql문
-  $list_sql = "select * from bbs order by seq desc limit $first, $list_size";
-  //$first 부터 $list_size 갯수만큼
-  $list_stt=$pdo->prepare($list_sql);
-  $list_stt->execute();
 
   //검색
   //$category = $_GET['category'];
@@ -42,6 +47,12 @@
     $arrValue[':search_text'] = "%{$search_text}%";
 }
 
+  // 1. 리스트에 출력하기 위한 sql문
+  $list_sql = "select * from bbs
+  order by seq desc limit $first, $list_size";
+  //$first 부터 $list_size 갯수만큼
+  $list_stt=$pdo->prepare($list_sql);
+  $list_stt->execute();
 
 
 
@@ -55,11 +66,11 @@
 
   <center>
   <h1>게 시 판</h1>
-  <form action="search.php" method="get">
+  <form method="get" action="/search.php">
     <select name="search_type">
-      <option value="all">전체</option>
-      <option value="title">제목</option>
-      <option value="name">이름</option>      
+      <option value="all" <?php echo ($search_type == 'all') ? 'selected="selected"' : '';?> >전체</option>
+      <option value="subject" <?php echo ($search_type == 'subject') ? 'selected="selected"' : '';?>>제목</option>
+      <option value="name" <?php echo ($search_type == 'name') ? 'selected="selected"' : '';?>>이름</option>      
     </select>
     <input type="text" name="search_text">
     <input type="submit" value="검색">
@@ -79,7 +90,7 @@
   {
 ?>
     <tr>
-      <td><a href='update.php?seq=<?=$list_row['seq']?>'><?=$list_row['seq']?></a></td>
+      <td><?=$list_row['seq']?></a></td>
       <td><a href='read.php?seq=<?=$list_row['seq']?>'><?=$list_row['subject']?></a></td>
       <td><?=$list_row['name']?></td>
       <td><?=$list_row['regdate']?></td>
@@ -91,7 +102,7 @@
   
   echo "</table>";
    // 2. 총 페이지를 구하기 위한 sql문
-   $total_sql = "select count(*) from bbs";
+   $total_sql = "select count(*) from bbs ";
    $total_stt=$pdo->prepare($total_sql);
    $total_stt->execute();
    $total_row=$total_stt->fetch();

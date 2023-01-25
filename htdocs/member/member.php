@@ -16,7 +16,7 @@
       <table border=1>
         <tr>
           <td>아이디</td>
-          <td><input type="text" id="id" name="id"></td>
+          <td><input type="text" id="userid" name="userid"></td>
           <p><input type="button" id="check_button" value="ID 중복 검사" onclick="javascript:checkid();"></p>
         </tr>
         <tr>
@@ -47,15 +47,14 @@
 
 
       $.ajax({
-                url: "check_id.php",
+                url: "id_check.php",
                 type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (data) {
                   let val = data.responseText;
-                  console.log(val);
-             
+                  console.log(val);             
                   if(data.responseText == "yes"){
                     alert("중복");
                   }else{
@@ -65,8 +64,9 @@
   
                    
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
+                error: function (err) {
+                    console.log(err);
+                    return;
                 }
             });
     }
