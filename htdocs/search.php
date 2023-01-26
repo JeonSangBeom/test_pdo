@@ -100,7 +100,8 @@
   
   echo "</table>";
    // 2. 총 페이지를 구하기 위한 sql문
-   $total_sql = "select count(*) from bbs where $search_type like '%$search_text%' ";
+   $total_sql = "select count(*) from bbs where $search_type like '%$search_text%' 
+                  order by seq desc limit $first, $list_size";
    $total_stt=$pdo->prepare($total_sql);
    $total_stt->execute();
    $total_row=$total_stt->fetch();
