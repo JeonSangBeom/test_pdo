@@ -12,25 +12,28 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <center>
-    <h1>수 정 하 기</h1>
-  </head>
-  <body >
+        <h1>수 정 하 기</h1>
+</head>
+
+<body>
     <form action="comment_update_p.php?seq=<?=$_GET['seq']?>" method="post">
-      <table>        
-        <tr>
-          <td>내용</td>
-          <td><textarea name="content" rows="8" cols="80"><?=$edit_row['content']?></textarea></td>
-        </tr>
-        
-      </table>
-      <br>
-      <input type="submit" value="수정하기">
-      <input type="button" value="돌아가기" onclick="history.back(-1)">
-      <input type="button" value="삭제하기" onClick="location.href='../delet_p.php?seq=<?=$_GET['seq']?>'"> s
+        <table>
+            <tr>
+                <td> 내용</td>
+                <td><textarea name="content" rows="8" cols="80"><?=$edit_row['content']?></textarea></td>
+            </tr>
+
+        </table>
+        <br>
+        <input type="submit" value="수정하기">
+        <input type="button" value="돌아가기" onclick="history.back(-1)">
+        <input type="button" value="삭제하기" onClick="location.href='../delet_p.php?seq=<?=$_GET['seq']?>'"> s
     </form>
-  </center>
-  </body>
+    </center>
+</body>
+
 </html>
